@@ -1,0 +1,22 @@
+[binaries]
+c = 'msp430-gcc'
+ar = 'msp430-ar'
+ld = 'msp430-ld'
+
+[properties]
+c_args = [
+	'-mmcu=msp430g2231',
+	'-std=c99',
+	'-O0',
+	'-g',
+	'-Wall',
+	'-Werror',
+	]
+
+c_link_args = [ '-mmcu=msp430g2231' ]
+
+[host_machine]
+system = 'bare'
+cpu_family = 'msp430'
+cpu = 'msp430g2231'
+endian = 'none'

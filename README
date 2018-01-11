@@ -1,5 +1,6 @@
 mkdir build
 meson --cross-file cross_msp430g2231.txt build
 cd build
+ninja list
 ninja blink
-ninja flash
+ninja flash_blink

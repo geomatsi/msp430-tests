@@ -1,21 +1,38 @@
-project('msp430 tests', ['c'])
+project('msp430 tests', 'c',
+	version : '0.1',
+	default_options : [ 'buildtype=minsize', 'c_std=c99' ],
+)
 
 assert(meson.is_cross_build(), 'Use cross-build for msp430 target')
 
-test1 = executable('blink',
-	'src/blink.c',
-	build_by_default : true,
-)
+mspdebug = find_program('mspdebug', required : true)
+echo = find_program('echo', required : true)
 
-test2 = executable('pir',
-	'src/pir.c',
-	build_by_default : false,
+incdir = include_directories('include')
 
-)
+progs = [
+	['blink', ['src/blink.c'], 'LED example'],
+	['pir', ['src/pir.c'], 'GPIO input example'],
+]
 
-mspdebug = find_program('mspdebug')
+targets = []
 
-run_target('flash',
-	command : [mspdebug, 'rf2500', 'prog @0@'.format(test1.full_path())],
-	depends : test1
+foreach p : progs
+	e = executable(p[0], p[1],
+		c_args : '-mmcu=msp430g2231',
+		link_args : '-mmcu=msp430g2231',
+		include_directories : incdir,
+		build_by_default : false,
+	)
+
+	r = run_target('flash_' + p[0],
+		command : [mspdebug, 'rf2500', 'prog @0@'.format(e.full_path())],
+		depends : e,
+	)
+
+	targets += [p[0], 'flash_' + p[0]]
+endforeach
+
+run_target('list',
+	command : [echo, targets],
 )

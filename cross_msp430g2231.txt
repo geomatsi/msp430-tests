@@ -5,18 +5,19 @@ ld = 'msp430-ld'
 
 [properties]
 c_args = [
-	'-mmcu=msp430g2231',
-	'-std=c99',
-	'-O0',
-	'-g',
+	'-fshort-enums',
+	'-ffunction-sections',
 	'-Wall',
 	'-Werror',
 	]
 
-c_link_args = [ '-mmcu=msp430g2231' ]
+c_link_args = [
+	'-Wl,--gc-sections',
+	]
+
 
 [host_machine]
 system = 'bare'
 cpu_family = 'msp430'
-cpu = 'msp430g2231'
+cpu = 'msp430x'
 endian = 'none'

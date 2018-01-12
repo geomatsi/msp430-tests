@@ -1,13 +1,13 @@
-/*
- *
- *
- */
-
 #include <stdint.h>
 #include <msp430g2231.h>
 
 #define	LED_R	(0x1 << 0x0)
 #define	LED_G	(0x1 << 0x6)
+
+static void led_toggle(void)
+{
+	P1OUT ^= (LED_R | LED_G);
+}
 
 static void sleep(unsigned int c)
 {
@@ -25,12 +25,13 @@ int main(void)
 	// Set P1.0 and P1.6 to output direction
 	P1DIR |= (LED_R | LED_G);
 
-	// Init LED: LED_R is on
-	P1OUT = LED_R;
+	// Set RED on, GREEN off
+	P1OUT |= LED_R;
+	P1OUT &= ~LED_G;
 
 	for (;;)
 	{
-		P1OUT ^= (LED_R | LED_G);
-		sleep(10000);
+		led_toggle();
+		sleep(20000);
 	}
 }

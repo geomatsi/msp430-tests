@@ -4,16 +4,11 @@
 #define	LED_R	(0x1 << 0x0)
 #define	LED_G	(0x1 << 0x6)
 
+extern void sleep(unsigned int c);
+
 static void led_toggle(void)
 {
 	P1OUT ^= (LED_R | LED_G);
-}
-
-static void sleep(unsigned int c)
-{
-	volatile unsigned int i;
-
-	for(i = 0; i < c; i++);
 }
 
 int main(void)

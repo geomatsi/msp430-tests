@@ -11,7 +11,7 @@ mspdebug = find_program('mspdebug', required : true)
 incdir = include_directories('include')
 
 progs = [
-	['blink', ['src/blink.c'], 'GPIO/LED example', 'msp430g2231'],
+	['blink', ['src/blink.c', 'src/delay.c'], 'GPIO/LED example', 'msp430g2231'],
 	['button', ['src/button.c'], 'GPIO/button example', 'msp430g2231'],
 ]
 

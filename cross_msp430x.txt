@@ -1,7 +1,7 @@
 [binaries]
-c = 'msp430-gcc'
-ar = 'msp430-ar'
-ld = 'msp430-ld'
+c = 'msp430-elf-gcc'
+ar = 'msp430-elf-ar'
+ld = 'msp430-elf-ld'
 
 [properties]
 c_args = [
